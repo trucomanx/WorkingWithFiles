@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+import sys
 from natsort import os_sorted
 
 
@@ -52,12 +53,16 @@ def get_all_files_in_dir_list(dirpath_list,formats_search=['.jpeg','.JPEG','.jpg
     for dirpath in dirpath_list:
         #print("Working on:",dirpath)
         if(os.path.isdir(dirpath)==False):
-            print("Directory",dirpath,"no exist!");
-            return [];
+            print("Directory "+dirpath+" no exist!", file=sys.stderr);
+            #return [];
+            sys.exit();
         for x in os.walk(dirpath):
-            #print('Found some files:',x[2])
+            #print(' ')
+            #print('x[0]:',x[0])
+            #print('x[1]:',x[1])
+            #print('x[2]:',x[2])
             for name in x[2]:
                 filename, ext = os.path.splitext(name);
                 if(ext in formats_search):
-                    lista.append(os.path.join(dirpath,name));
+                    lista.append(os.path.join(x[0],name));
     return os_sorted(lista);
