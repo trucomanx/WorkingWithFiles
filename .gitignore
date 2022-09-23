@@ -1,2 +1,5 @@
-/library/__pycache__/WorkingWithFiles.cpython-38.pyc
-/.ipynb_checkpoints/example-checkpoint.ipynb
+/library/__pycache__
+/.ipynb_checkpoints
+/tests/dataset
+/src/WorkingWithFiles/__pycache__
+/tests/.ipynb_checkpoints
