@@ -35,7 +35,41 @@ def reaname_files_in(dirpath,prename,fmt_out=".jpg",formats_search=['.jpeg','.JP
                 k=k+1;
 
 
-
+def get_all_files_in_dir(dirpath,formats_search=['.jpeg','.JPEG','.jpg','.JPG'],is_relative=False):
+    """
+    Busca archivos.
+    Retorna todos los archivos en el directorio `dirpath`.
+    Restringe su busqueda a las extensiones en `formats_search`.
+    
+    :param dirpath: directorio
+    :type dirpath: string
+    :param formats_search: Lista de formatos
+    :type formats_search: list[string]
+    :param is_relative: habilita uma salida con la direción relativa a dirpath.
+    :type is_relative: bool
+    :return: Lista ordenada de todos los archivos en dirpath.
+    :rtype: list[string]
+    """
+    lista=[];
+    
+    #print("Working on:",dirpath)
+    if(os.path.isdir(dirpath)==False):
+        print("Directory "+dirpath+" no exist!", file=sys.stderr);
+        sys.exit();
+    for x in os.walk(dirpath):
+        #print(' ')
+        #print('x[0]:',x[0])
+        #print('x[1]:',x[1])
+        #print('x[2]:',x[2])
+        for name in x[2]:
+            filename, ext = os.path.splitext(name);
+            if(ext in formats_search):
+                fpath=os.path.join(x[0],name);
+                if is_relative:
+                    fpath = os.path.relpath(fpath, dirpath)
+                lista.append(fpath);
+    return os_sorted(lista);
+    
 def get_all_files_in_dir_list(dirpath_list,formats_search=['.jpeg','.JPEG','.jpg','.JPG']):
     """
     Busca archivos.
