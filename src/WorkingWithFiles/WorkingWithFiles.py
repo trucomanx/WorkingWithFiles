@@ -107,3 +107,19 @@ def join_path_to_list_path(base_dir,list_path):
     for fpath in list_path:
         lista.append(os.path.join(base_dir,fpath));
     return lista;
+    
+def relpath_of_list_path(list_path,base_dir):
+    """
+    Retorna una lista de path relativa a `base_dir` desde una lista `list_path`.
+    
+    :param list_path: Lista de directorios.
+    :type list_path: list[string]
+    :param dirpath: Directorio base.
+    :type dirpath: string
+    :return: Lista de path relativo a base_dir
+    :rtype: list[string]
+    """
+    lista=[];
+    for fpath in list_path:
+        lista.append(os.path.relpath(fpath, base_dir));
+    return lista;
