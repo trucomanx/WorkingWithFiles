@@ -4,7 +4,7 @@ import sys
 from natsort import os_sorted
 
 
-def reaname_files_in(dirpath,prename,fmt_out=".jpg",formats_search=['.jpeg','.JPEG','.jpg','.JPG']):
+def rename_files_in(dirpath,prename,fmt_out=".jpg",formats_search=['.jpeg','.JPEG','.jpg','.JPG']):
     '''
     Renombra los archivos de forma ordenada usando un prename
     
@@ -52,15 +52,10 @@ def get_all_files_in_dir(dirpath,formats_search=['.jpeg','.JPEG','.jpg','.JPG'],
     """
     lista=[];
     
-    #print("Working on:",dirpath)
     if(os.path.isdir(dirpath)==False):
         print("Directory "+dirpath+" no exist!", file=sys.stderr);
         sys.exit();
     for x in os.walk(dirpath):
-        #print(' ')
-        #print('x[0]:',x[0])
-        #print('x[1]:',x[1])
-        #print('x[2]:',x[2])
         for name in x[2]:
             filename, ext = os.path.splitext(name);
             if(ext in formats_search):
@@ -69,7 +64,8 @@ def get_all_files_in_dir(dirpath,formats_search=['.jpeg','.JPEG','.jpg','.JPG'],
                     fpath = os.path.relpath(fpath, dirpath)
                 lista.append(fpath);
     return os_sorted(lista);
-    
+
+
 def get_all_files_in_dir_list(dirpath_list,formats_search=['.jpeg','.JPEG','.jpg','.JPG']):
     """
     Busca archivos.
@@ -85,18 +81,29 @@ def get_all_files_in_dir_list(dirpath_list,formats_search=['.jpeg','.JPEG','.jpg
     """
     lista=[];
     for dirpath in dirpath_list:
-        #print("Working on:",dirpath)
         if(os.path.isdir(dirpath)==False):
             print("Directory "+dirpath+" no exist!", file=sys.stderr);
-            #return [];
             sys.exit();
         for x in os.walk(dirpath):
-            #print(' ')
-            #print('x[0]:',x[0])
-            #print('x[1]:',x[1])
-            #print('x[2]:',x[2])
             for name in x[2]:
                 filename, ext = os.path.splitext(name);
                 if(ext in formats_search):
                     lista.append(os.path.join(x[0],name));
     return os_sorted(lista);
+
+
+def join_path_to_list_path(base_dir,list_path):
+    """
+    Agrega un `base_dir` a cada path en `list_path`.
+    
+    :param dirpath: Directorio base.
+    :type dirpath: string
+    :param list_path: Lista de directorios.
+    :type list_path: list[string]
+    :return: Lista de path con base_dir
+    :rtype: list[string]
+    """
+    lista=[];
+    for fpath in list_path:
+        lista.append(os.path.join(base_dir,fpath));
+    return lista;
