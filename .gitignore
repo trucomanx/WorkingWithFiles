@@ -3,3 +3,6 @@
 /tests/dataset
 /src/WorkingWithFiles/__pycache__
 /tests/.ipynb_checkpoints
+*.pyc
+src/WorkingWithFiles.egg-info
+src/dist
