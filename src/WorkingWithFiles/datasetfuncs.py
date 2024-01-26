@@ -34,4 +34,8 @@ def generate_csv_file_from_dir_structure(base_dir,format_list,csv_path,header = 
                     item=[os.path.join(label_list[m],file_list_list[m][n]), label_list[m]];
                     writer.writerow(item);
                     out.append(item);
-    return out;
+        
+        category=set();
+        for m in range(M):
+            category.add(label_list[m]);
+    return out,category;
