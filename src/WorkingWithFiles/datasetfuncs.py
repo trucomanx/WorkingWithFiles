@@ -3,7 +3,7 @@ import os
 import WorkingWithFiles.WorkingWithFiles as wf
 import csv  
 import numpy as np
-
+from collections import Counter
 
 def generate_csv_file_from_dir_structure(base_dir,format_list,csv_path,header = ['filename', 'label']):
     label_list = [ name for name in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, name)) ]
@@ -28,14 +28,14 @@ def generate_csv_file_from_dir_structure(base_dir,format_list,csv_path,header = 
         M=len(label_list);
         
         out=[]
+        Count=Counter();
         for n in range(N):
             for m in range(M):
                 if(n<Nel[m]):
                     item=[os.path.join(label_list[m],file_list_list[m][n]), label_list[m]];
+                    Count[label_list[m]]=Count[label_list[m]]+1;
+                    
                     writer.writerow(item);
                     out.append(item);
-        
-        category=set();
-        for m in range(M):
-            category.add(label_list[m]);
-    return out,category;
+    
+    return out,Count;
