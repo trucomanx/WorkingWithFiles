@@ -14,7 +14,7 @@ setup(
     description='functions to find and list files',
     #long_description=open('README.txt').read(),
     install_requires=[
-       "natsort" #"Django >= 1.1.1",
+       "natsort" #"Django >= 1.1.1",#
     ],
 )
 
