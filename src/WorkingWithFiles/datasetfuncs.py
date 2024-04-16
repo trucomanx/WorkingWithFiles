@@ -48,7 +48,7 @@ def generate_csv_file_from_dir_structure(base_dir,format_list,csv_path,header = 
                         category=os.path.basename(diretorio);
                     
                     item=[filepath, category];
-                    Count[label_list[m]]=Count[label_list[m]]+1;
+                    Count[category]=Count[category]+1;
                     
                     writer.writerow(item);
                     out.append(item);
