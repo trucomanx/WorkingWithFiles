@@ -10,7 +10,7 @@ Download the source code
 The next command generates the `dist/WorkingWithFiles-VERSION.tar.gz` file.
 
     cd WorkingWithFiles/src
-    python setup.py sdist
+    python3 setup.py sdist
 
 For more informations use `python setup.py --help-commands`
 
