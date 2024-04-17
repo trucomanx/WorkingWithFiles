@@ -87,7 +87,19 @@ def generate_csv_file_from_csv_dir_structure(   base_dir,
     with open(csv_path, 'w', encoding='UTF8') as f:
         writer = csv.writer(f)
         
-        if output_header_list!=None and isinstance(output_header_list, list):
+        if output_header_list==None:
+            pass;
+        elif output_header_list=='default':
+            filepath=os.path.join(first_level_list[0],file_list_list[0][0]);
+            ## load df
+            if input_has_header:
+                df = pd.read_csv(os.path.join(base_dir,filepath))
+            else:
+                df = pd.read_csv(os.path.join(base_dir,filepath), header=None)
+            
+            oh_list=['d'+str(n) for n in range(df.shape[1])]+['label'];
+            writer.writerow(oh_list);
+        elif isinstance(output_header_list, list):
             writer.writerow(output_header_list)
         
         Nel=[];
@@ -120,7 +132,7 @@ def generate_csv_file_from_csv_dir_structure(   base_dir,
                         diretorio, nome_arquivo = os.path.split(filepath)
                         category=os.path.basename(diretorio);
                     
-                    df['category']=category;
+                    df['label']=category;
                     
                     item=df.values.tolist();
                     Count[category]=Count[category]+df.shape[0];
