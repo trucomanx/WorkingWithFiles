@@ -65,11 +65,7 @@ def generate_csv_file_from_dir_structure(base_dir,format_list,csv_path,header = 
     return out,Count;
 
 
-'''
-Generate a CSV file analizing a directory structure from a root directory, 
-generates N columns a filepath column and a label column.
-The labels of columns can be defined in the parameter 'output_header_list'.
-'''
+
 def generate_csv_file_from_csv_dir_structure(   base_dir,
                                                 format_list,
                                                 csv_path,
@@ -77,7 +73,19 @@ def generate_csv_file_from_csv_dir_structure(   base_dir,
                                                 output_header_list = None,
                                                 label_first=True,
                                                 processing_func=None):
-    
+    '''
+    Generate a CSV file analyzing a directory structure from a root directory with csv files (without labels only N data columns), 
+    the function generates a CSV file with N data columns and a label column.
+    The labels of columns can be defined in the parameter 'output_header_list'.
+
+    base_dir: Base directory. ex:"/some/filepath"
+    format_list: List string with all the file types. ex: ['.png','.PNG']
+    csv_path: Path of CSV output file. ex: "/some/output/filepath/out.csv"
+    input_has_header: Bool if True assumes that the input csv files have a header, else in another case.
+    output_header_list: If None the output has no header, if 'default' the output has header ['d0',...,'dN-1','label'], if list string the list is used.
+    label_first: Bool if True the label is the first subdirectory name, else the label is the last subdirectory name.
+    processing_func: Function that proccess a dataframe (csv file)
+    '''
     ## find the labels with only the first level name directory
     first_level_list = [ name for name in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, name)) ];
     #print('first_level_list:',first_level_list)    
@@ -92,7 +100,9 @@ def generate_csv_file_from_csv_dir_structure(   base_dir,
     ## Write a CSV file
     with open(csv_path, 'w', encoding='UTF8') as f:
         writer = csv.writer(f)
-        
+
+        ##################################
+        ## Finding and wrinting the output header list
         if output_header_list==None:
             pass;
         elif output_header_list=='default':
@@ -107,6 +117,7 @@ def generate_csv_file_from_csv_dir_structure(   base_dir,
             writer.writerow(oh_list);
         elif isinstance(output_header_list, list):
             writer.writerow(output_header_list)
+        ##################################
         
         Nel=[];
         for file_list in file_list_list:
