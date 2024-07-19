@@ -6,13 +6,19 @@ import numpy as np
 from collections import Counter
 
 
-'''
-Generate a CSV file analizing a directory structure from a root directory, 
-generates two columns a filepath column and a label column.
-The labels of columns can be defined in the parameter 'header'.
-'''
+
 def generate_csv_file_from_dir_structure(base_dir,format_list,csv_path,header = ['filename', 'label'],label_first=True):
-    
+    '''
+    Generate a CSV file analyzing a directory structure from a root directory, 
+    generates two columns a filepath column and a label column.
+    The labels of columns can be defined in the parameter 'header'.
+
+    base_dir: Base directory. ex:"/some/filepath"
+    format_list: List string with all the file types. ex: ['.png','.PNG']
+    csv_path: Path of CSV output file. ex: "/some/output/filepath/out.csv"
+    header: List string with two elements, they are the headers of CSV file. ex: ['filename', 'label']
+    label_first: Bool if True the label is the first subdirectory name, else the label is the last subdirectory name.
+    '''
     ## find the labels with only the first level name directory
     label_list = [ name for name in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, name)) ];
     #print('label_list:',label_list)    
