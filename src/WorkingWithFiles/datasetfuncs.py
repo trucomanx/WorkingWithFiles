@@ -72,6 +72,7 @@ def generate_csv_file_from_csv_dir_structure(   base_dir,
                                                 input_has_header= False,
                                                 output_header_list = None,
                                                 label_first=True,
+                                                new_column="label",
                                                 processing_func=None):
     '''
     Generate a CSV file analyzing a directory structure from a root directory with csv files (without labels only N data columns), 
@@ -113,7 +114,7 @@ def generate_csv_file_from_csv_dir_structure(   base_dir,
             else:
                 df = pd.read_csv(os.path.join(base_dir,filepath), header=None)
             
-            oh_list=['d'+str(n) for n in range(df.shape[1])]+['label'];
+            oh_list=['d'+str(n) for n in range(df.shape[1])]+[new_column];
             writer.writerow(oh_list);
         elif isinstance(output_header_list, list):
             writer.writerow(output_header_list)
@@ -149,7 +150,7 @@ def generate_csv_file_from_csv_dir_structure(   base_dir,
                         diretorio, nome_arquivo = os.path.split(filepath)
                         category=os.path.basename(diretorio);
                     
-                    df['label']=category;
+                    df[new_column]=category;
                     
                     item=df.values.tolist();
                     Count[category]=Count[category]+df.shape[0];
